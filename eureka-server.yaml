@@ -8,3 +8,20 @@ eureka:
 
 server:
   port: 8761
+management:
+  endpoints:
+    web:
+      exposure:
+        include=refresh:
+  security:
+    enabled=false:
+  endpoint:
+    restart:
+      enabled=true:
+    env:
+      post:
+        enabled=true:
+endpoints:
+  actuator:
+    enabled=true:
+  sensitive=true:
