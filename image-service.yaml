@@ -1,11 +1,16 @@
 server:
   port: 8185
+  forward-headers-strategy: framework
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   datasource:
     hikari:
       maximum-pool-size: 50
       connection-timeout: 6000
-    url: jdbc:postgresql://localhost:5432/highload
+    url: jdbc:postgresql://postgres:5432/highload
     username: high_user
     password: high_user
     driver-class-name: org.postgresql.Driver
@@ -19,12 +24,12 @@ eureka:
   client:
     serviceUrl:
       #defaultZone: http://eureka:8761/eureka/
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka:8761/eureka/
 jwt:
-  secret: ereboging
-  expired: 84600
+  secret: ${JWT_SECRET}
+  expired: ${JWT_EXPIRED}
 pagination:
-  maxSize: 50
+  maxSize: ${PAGINATION_MAX_SIZE}
 resilience4j.circuitbreaker:
   instances:
     userServiceBreaker:
@@ -55,4 +60,17 @@ resilience4j.circuitbreaker:
       minimumNumberOfCalls: 10
       waitDurationInOpenState: 10s
       failureRateThreshold: 50
+minio:
+  bucket:
+    name: test
+  default:
+    folder: /
+  access:
+    name: root
+    secret: root1234
+  secure: false
+  url: http://minio:9000
+  port: 9000
+  imageSize: 41943040
+  fileSize: 1073741824
 

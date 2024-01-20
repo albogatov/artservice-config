@@ -1,11 +1,21 @@
 server:
   port: 8183
+  forward-headers-strategy: framework
 spring:
+  kafka:
+    consumer:
+      group-id=response:
+    template:
+      default-topic=notifications:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: kafka:29092
   datasource:
     hikari:
       maximum-pool-size: 50
       connection-timeout: 6000
-    url: jdbc:postgresql://localhost:5432/highload
+    url: jdbc:postgresql://postgres:5432/highload
     username: high_user
     password: high_user
     driver-class-name: org.postgresql.Driver
@@ -19,12 +29,12 @@ eureka:
   client:
     serviceUrl:
       #defaultZone: http://eureka:8761/eureka/
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka:8761/eureka/
 jwt:
-  secret: ereboging
-  expired: 84600
+  secret: ${JWT_SECRET}
+  expired: ${JWT_EXPIRED}
 pagination:
-  maxSize: 50
+  maxSize: ${PAGINATION_MAX_SIZE}
 resilience4j.circuitbreaker:
   instances:
     userServiceBreaker:
@@ -41,4 +51,5 @@ resilience4j.circuitbreaker:
       minimumNumberOfCalls: 10
       waitDurationInOpenState: 10s
       failureRateThreshold: 50
+
 
