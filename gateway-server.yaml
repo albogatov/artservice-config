@@ -81,7 +81,7 @@ spring:
           predicates:
             - Path=/notification-service/websocket/info/**
           filters:
-            - RewritePath=/notification-service/websocket/info/(?<segment>/?.*), /websocket/info//$\{segment}
+            - RewritePath=/notification-service/websocket/info/(?<segment>/?.*), /websocket/info/$\{segment}
         - id: image-service-websocket-sock-js
           uri: lb://image-service
           predicates:
