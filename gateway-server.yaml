@@ -65,11 +65,11 @@ spring:
           predicates:
             - Path=/api/profile/**
         - id: notification-service-websocket
-          uri: lb://notification-service
+          uri: lb:ws://notification-service
           predicates:
             - Path=/notification-service/websocket/**
         - id: image-service-websocket
-          uri: lb://image-service
+          uri: lb:ws://image-service
           predicates:
             - Path=/image-service/websocket/**
 eureka:
