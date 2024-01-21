@@ -68,10 +68,14 @@ spring:
           uri: lb:ws://notification-service
           predicates:
             - Path=/notification-service/websocket/**
+          filters:
+            - RewritePath=/notification-service/websocket/(?<segment>/?.*), /websocket/$\{segment}
         - id: image-service-websocket
           uri: lb:ws://image-service
           predicates:
             - Path=/image-service/websocket/**
+          filters:
+            - RewritePath=/image-service/websocket/(?<segment>/?.*), /websocket/$\{segment}
 eureka:
   client:
     serviceUrl:
